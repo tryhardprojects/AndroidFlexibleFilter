@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="Basic"
+                android:textSize="20sp" />
+
+            <projects.tryhard.androidflexiblefilter.FlexibleFilter
+                android:id="@+id/filter1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/filter2_open"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Open Filter2" />
+
+            <projects.tryhard.androidflexiblefilter.FlexibleFilter
+                android:id="@+id/filter2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="Advance"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/filter3_open"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Open Filter3" />
+
+            <projects.tryhard.androidflexiblefilter.FlexibleFilter
+                android:id="@+id/filter3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <projects.tryhard.androidflexiblefilter.FlexibleFilter
+                android:id="@+id/filter4"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/filter4_rv"
+                android:layout_width="match_parent"
+                android:layout_height="500dp" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
