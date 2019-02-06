@@ -579,6 +579,21 @@ public class FlexibleFilter<T> extends LinearLayout {
         return null;
     }
 
+    public <S> void setSubFilterCallback(int filterNum, Class<S> filterIdClass, FlexibleFilter.FilterClickCallback<S> callback){
+        getSubFilter(filterNum, filterIdClass).setFilterClickCallback(callback);
+    }
+
+    public <S> void clearSubFilter(int filterNum, Class<S> filterIdClass){
+        FilterHolder<S> filterHolder = getSubFilter(filterNum, filterIdClass);
+        for(int i = 0 ; i < filterHolder.getOptions().size();i++){
+            filterHolder.removeFilterButton(filterHolder.getOptions().get(i).getFilterId());
+        }
+    }
+
+    public <S> List<S> getSubFilterIds(int filterNum, Class<S> filterIdClass){
+        return getSubFilter(filterNum, filterIdClass).getAllFilterIds();
+    }
+
     public void setFilterOrientation(Orientation orientation) {
         ViewParent viewParent = mFilterContainer.getParent();
         if (viewParent != null) {

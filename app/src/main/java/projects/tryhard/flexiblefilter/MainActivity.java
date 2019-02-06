@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        mFilter1.getSubFilter(filter1filterNum, String.class).setFilterClickCallback(new FlexibleFilter.FilterClickCallback<String>() {
+        mFilter1.setSubFilterCallback(filter1filterNum, String.class, new FlexibleFilter.FilterClickCallback<String>() {
             @Override
             public void filterOptionClicked(int filterNum, String filterId) {
                 TextView title = mFilter1.getTitleView().findViewById(R.id.filter_title);
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        mFilter2.getSubFilter(filter2filterNum, String.class).setFilterClickCallback(new FlexibleFilter.FilterClickCallback<String>() {
+        mFilter2.setSubFilterCallback(filter2filterNum, String.class, new FlexibleFilter.FilterClickCallback<String>() {
             @Override
             public void filterOptionClicked(int filterNum, String filterId) {
                 View titleView = mFilter2.getTitleView();
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-        mFilter3.getSubFilter(filter3filterNum, String.class).setFilterClickCallback(new FlexibleFilter.FilterClickCallback<String>() {
+        mFilter3.setSubFilterCallback(filter3filterNum, String.class, new FlexibleFilter.FilterClickCallback<String>() {
             @Override
             public void filterOptionClicked(int filterNum, String filterId) {
                 EditText editText = mFilter3.getTitleView().findViewById(R.id.filter3_searchbar);
@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 FilterHolder<String> filterHolder = mFilter3.getSubFilter(filter3filterNum, String.class);
-                List<String> filter3AllFilterIds = filterHolder.getAllFilterIds();
+                List<String> filter3AllFilterIds = mFilter3.getSubFilterIds(filter3filterNum, String.class);
                 String key = editable.toString().toUpperCase();
                 for (int i = 0; i < filter3AllFilterIds.size(); i++) {
                     if (!filter3AllFilterIds.get(i).contains(key)) {
@@ -422,8 +422,8 @@ public class MainActivity extends AppCompatActivity {
 
         };
         mFilter4.addFilter(filter4_2filterNum, "ALL", -1);
-        mFilter4.getSubFilter(filter4_1filterNum, String.class).setFilterClickCallback(callback);
-        mFilter4.getSubFilter(filter4_2filterNum, String.class).setFilterClickCallback(callback);
+        mFilter4.setSubFilterCallback(filter4_1filterNum, String.class, callback);
+        mFilter4.setSubFilterCallback(filter4_2filterNum, String.class, callback);
         mFilter4.setFilterColCount(2);
         mFilter4.setOpeningFilters(new ArrayList<Integer>() {{
             add(filter4_1filterNum);
@@ -450,7 +450,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addAnOptionToFilter2(int count, FlexibleFilter.OptionGetStringCallback<String> optionGetStringCallback2) {
-        mFilter2.addFilterOption(0, (mFilter2.getSubFilter(0, String.class).getAllFilterIds().size() - 6) + "", count, getScreenWidthPixel(this) / 3, optionGetStringCallback2);
+        mFilter2.addFilterOption(0, (mFilter2.getSubFilterIds(0, String.class).size() - 6) + "", count, getScreenWidthPixel(this) / 3, optionGetStringCallback2);
     }
 
     private void toggleFilter2ShouldShowCount() {

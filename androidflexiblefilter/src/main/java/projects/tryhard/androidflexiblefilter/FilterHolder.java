@@ -177,6 +177,18 @@ public class FilterHolder<T> {
         });
     }
 
+    void removeFilterButton(T filterId){
+        Option<T> option = getFilterButton(filterId);
+        mContainer.removeView(option.getAutofitTextView());
+        mOptions.remove(option);
+
+        if (isContainerVisible()) {
+            readyToTakeHeight(false, false);
+        } else {
+            readyToTakeHeight(true, false);
+        }
+    }
+
     void setContainerSize(int width) {
         mContainer.getLayoutParams().width = width;
         readyToTakeHeight(isContainerVisible(), true);
