@@ -585,9 +585,12 @@ public class FlexibleFilter<T> extends LinearLayout {
 
     public <S> void clearSubFilter(int filterNum, Class<S> filterIdClass){
         FilterHolder<S> filterHolder = getSubFilter(filterNum, filterIdClass);
-        for(int i = 0 ; i < filterHolder.getOptions().size();i++){
-            filterHolder.removeFilterButton(filterHolder.getOptions().get(i).getFilterId());
+        int optionCount = filterHolder.getOptions().size();
+        for(int i = 1 ; i < optionCount;i++){
+            S s = filterHolder.getOptions().get(1).getFilterId();
+            filterHolder.removeFilterButton(s);
         }
+        updateAllFilters();
     }
 
     public <S> List<S> getSubFilterIds(int filterNum, Class<S> filterIdClass){

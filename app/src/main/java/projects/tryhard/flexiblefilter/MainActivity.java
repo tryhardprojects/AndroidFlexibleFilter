@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     FlexibleFilter<String> mFilter2;
     boolean filter2ShowCount = true;
     Button mOpenFilter2Button;
+    Button mReAddfilter2Button;
     FlexibleFilter<String> mFilter3;
     Button mOpenFilter3Button;
     FlexibleFilter<String> mFilter4;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         mFilter1 = findViewById(R.id.filter1);
         mFilter2 = findViewById(R.id.filter2);
         mOpenFilter2Button = findViewById(R.id.filter2_open);
+        mReAddfilter2Button = findViewById(R.id.filter2_readd);
         mFilter3 = findViewById(R.id.filter3);
         mOpenFilter3Button = findViewById(R.id.filter3_open);
         mFilter4 = findViewById(R.id.filter4);
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //region Filter 1
-        int filter1filterNum = 0;
+        final int filter1filterNum = 0;
         mFilter1.init(this, filter1filterNum, 0, "ALL", new FlexibleFilter.FilterErrorCallback() {
             @Override
             public void noSuchFilterError(int notExistFilterNum) {
@@ -160,6 +162,9 @@ public class MainActivity extends AppCompatActivity {
                     case "Toggle0Count":
                         mFilter2.setShouldHideZeroFilters(!mFilter2.isShouldHideZeroFilters());
                         break;
+                    case "Clear":
+                        mFilter2.clearSubFilter(filter2filterNum, String.class);
+                        break;
                 }
             }
 
@@ -185,6 +190,19 @@ public class MainActivity extends AppCompatActivity {
                 mFilter2.open();
             }
         });
+        mReAddfilter2Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFilter2.clearSubFilter(filter2filterNum, String.class);
+                mFilter2.addFilterOption(filter2filterNum, "ToggleTitle", 1, getScreenWidthPixel(MainActivity.this) / 2, optionGetStringCallback2);
+                mFilter2.addFilterOption(filter2filterNum, "ToggleAll", 1, getScreenWidthPixel(MainActivity.this) / 2, optionGetStringCallback2);
+                mFilter2.addFilterOption(filter2filterNum, "AddOp1", 1, getScreenWidthPixel(MainActivity.this) / 2, optionGetStringCallback2);
+                mFilter2.addFilterOption(filter2filterNum, "AddOp0", 1, getScreenWidthPixel(MainActivity.this) / 2, optionGetStringCallback2);
+                mFilter2.addFilterOption(filter2filterNum, "ToggleTextCount", 1, getScreenWidthPixel(MainActivity.this) / 2, optionGetStringCallback2);
+                mFilter2.addFilterOption(filter2filterNum, "Toggle0Count", 1, getScreenWidthPixel(MainActivity.this) / 2, optionGetStringCallback2);
+                mFilter2.addFilterOption(filter2filterNum, "Clear", 1, getScreenWidthPixel(MainActivity.this) / 2, optionGetStringCallback2);
+            }
+        });
         mFilter2.setShouldCloseAfterClick(false);
 
         mFilter2.addFilterOption(filter2filterNum, "ToggleTitle", 1, getScreenWidthPixel(this) / 2, optionGetStringCallback2);
@@ -193,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
         mFilter2.addFilterOption(filter2filterNum, "AddOp0", 1, getScreenWidthPixel(this) / 2, optionGetStringCallback2);
         mFilter2.addFilterOption(filter2filterNum, "ToggleTextCount", 1, getScreenWidthPixel(this) / 2, optionGetStringCallback2);
         mFilter2.addFilterOption(filter2filterNum, "Toggle0Count", 1, getScreenWidthPixel(this) / 2, optionGetStringCallback2);
+        mFilter2.addFilterOption(filter2filterNum, "Clear", 1, getScreenWidthPixel(this) / 2, optionGetStringCallback2);
         //endregion
 
         //region Filter 3
