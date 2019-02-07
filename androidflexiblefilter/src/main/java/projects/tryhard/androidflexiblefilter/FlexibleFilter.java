@@ -332,6 +332,8 @@ public class FlexibleFilter<T> extends LinearLayout {
         mCurrentOpeningFilters.add(0);
 
         setFilterOrientation(mOrientation);
+
+        setOpeningFilters(mCurrentOpeningFilters);
     }
     //endregion
 
