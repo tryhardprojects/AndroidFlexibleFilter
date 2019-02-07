@@ -34,7 +34,7 @@ First add this to the xml layout file.
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 ```
-And then initialize the filter using:
+And then initialize the filter using: (you will need a [FilterCallback](#FilterCallback))
 ```
     /**
      * Use to init the whole filter with default.
@@ -88,7 +88,7 @@ You will have one default filter with an default all button. Add another filter 
      * @param emptyViewLayout A view to display when no option are shown. -1 means default emptyView.
      */
     public <S> void addFilter(int filterNum, final S defaultT, @LayoutRes int emptyViewLayout)
-Add option to certain filter with:
+Add option to certain filter with: (you will need a [OptionGetStringCallback](#OptionGetStringCallback))
 
     /**
      * Add a option to filter with left margin 4dp, right 4dp, up and down 8dp.
@@ -97,10 +97,10 @@ Add option to certain filter with:
      * @param optionId                 The unique ID you give to the option.
      * @param count                    The count of this option from the beginning.
      * @param width                    The width of this option.
-     * @param [OptionGetStringCallback](#OptionGetStringCallback) For you to decide the text on the option.
+     * @param optionGetStringCallback For you to decide the text on the option.
      * @param <S>                      optionId class.
      */
-    public <S> void addFilterOption(int filterNum, S optionId, int count, int width, [OptionGetStringCallback](#OptionGetStringCallback)<S> optionGetStringCallback)
+    public <S> void addFilterOption(int filterNum, S optionId, int count, int width, OptionGetStringCallback<S> optionGetStringCallback)
     
 Set up [OptionClickCallback](#OptionClickCallback) to option with setOptionOnClickCallback function, do your logic after option being clicked in filterOptionClicked. Like changing views in title by calling getTitle().
     
