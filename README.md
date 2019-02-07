@@ -5,9 +5,11 @@ An library to create flexible dynamic and filter, custom title with tags.
 ### Basic
 <img src="https://j.gifs.com/WL6LJg.gif" alt="alt text" width="270" height="480">
 <img src="https://j.gifs.com/q7x71r.gif" alt="alt text" width="270" height="480">
+
 ### Advance
 <img src="https://j.gifs.com/nx5x14.gif" alt="alt text" width="270" height="480">
 <img src="https://j.gifs.com/ANDNpB.gif" alt="alt text" width="270" height="480">
+
 # Import
 ### Gradle
     allprojects {    
