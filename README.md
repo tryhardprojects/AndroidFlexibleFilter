@@ -97,10 +97,12 @@ Add option to certain filter with:
      * @param optionId                 The unique ID you give to the option.
      * @param count                    The count of this option from the beginning.
      * @param width                    The width of this option.
-     * @param mOptionGetStringCallback For you to decide the text on the option.
+     * @param optionGetStringCallback For you to decide the text on the option.
      * @param <S>                      optionId class.
      */
-    public <S> void addFilterOption(int filterNum, S optionId, int count, int width, OptionGetStringCallback<S> mOptionGetStringCallback)
+    public <S> void addFilterOption(int filterNum, S optionId, int count, int width, OptionGetStringCallback<S> optionGetStringCallback)
+    
+Set up callback to option with setOptionOnClickCallback function, do your logic after option being clicked in filterOptionClicked. Like changing views in title by calling getTitle(). [Go to OptionClickCallback](#OptionClickCallback)
     
 # Callbacks
 ### FilterCallback
