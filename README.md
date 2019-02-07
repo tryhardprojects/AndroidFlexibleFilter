@@ -3,12 +3,16 @@ An library to create flexible dynamic and filter, custom title with tags.
 
 # Screen Shots
 ### Basic
-<img src="https://j.gifs.com/WL6LJg.gif" alt="alt text" width="270" height="480">
-<img src="https://j.gifs.com/q7x71r.gif" alt="alt text" width="270" height="480">
+<p float="left">
+	<img src="https://j.gifs.com/WL6LJg.gif" alt="alt text" width="270" height="480">
+	<img src="https://j.gifs.com/q7x71r.gif" alt="alt text" width="270" height="480">
+</p>
 
 ### Advance
-<img src="https://j.gifs.com/nx5x14.gif" alt="alt text" width="270" height="480">
-<img src="https://j.gifs.com/ANDNpB.gif" alt="alt text" width="270" height="480">
+<p float="left">
+	<img src="https://j.gifs.com/nx5x14.gif" alt="alt text" width="270" height="480">
+	<img src="https://j.gifs.com/ANDNpB.gif" alt="alt text" width="270" height="480">
+</p>
 
 # Import
 ### Gradle
@@ -63,8 +67,10 @@ Or
                      boolean hideAll, boolean hideZeroOptions, Orientation orientation, int colCount, boolean shouldCloseAfterClick,
                      boolean changeColorWhenSelect, FilterErrorCallback filterErrorCallback)
 ```
+
 ### Customizable attributes
 You can customizable the attributes by xml, java (with init() or set methods).
+
 | Attribute                | default value | xml                             | java                           |
 |--------------------------|---------------|---------------------------------|--------------------------------|
 | Orientation              | vertical      | app:orientation                 | setFilterOrientation           |
