@@ -80,4 +80,88 @@ You can customizable the attributes by xml, java (with init() or set methods).
 | Close After Click        | true          | app:shouldCloseAfterClick       | setShouldCloseAfterClick       |
 | Hide All                 | false         | app:shouldHideAll               | setShouldHideAll               |
 
+You will have one default filter with an default all button. Add another filter with:
+
+    /**
+     * @param filterNum       A number for default filter, use it when you want to update, show or hide certain filter.
+     * @param defaultT        A unique ID for the default all option.
+     * @param emptyViewLayout A view to display when no option are shown. -1 means default emptyView.
+     */
+    public <S> void addFilter(int filterNum, final S defaultT, @LayoutRes int emptyViewLayout)
+Add option to certain filter with:
+
+    /**
+     * Add a option to filter with left margin 4dp, right 4dp, up and down 8dp.
+     *
+     * @param filterNum                The filter number where you want to add an option.
+     * @param optionId                 The unique ID you give to the option.
+     * @param count                    The count of this option from the beginning.
+     * @param width                    The width of this option.
+     * @param mOptionGetStringCallback For you to decide the text on the option.
+     * @param <S>                      optionId class.
+     */
+    public <S> void addFilterOption(int filterNum, S optionId, int count, int width, OptionGetStringCallback<S> mOptionGetStringCallback)
+    
+# Callbacks
+### FilterCallback
+```
+public interface FilterCallback {
+    /**
+     * Decide the text on default all option.
+     * @param filterNum The filterNum for this sub filter.
+     * @param count     the sum of all the option counts.
+     * @return A string that will be display on the option.
+     */
+    String defaultAllOptionString(int count);
+
+    /**
+     * Get called when is no FilterNum match that.
+     * @param notExistFilterNum The number of filter.
+     */
+    void noSuchFilterError(int notExistFilterNum);
+
+    /**
+     * Get called when you select an non-exist option.
+     */
+    void filterOptionNotExistError();
+
+    /**
+     * Get called when you give the wrong optionId type.
+     */
+    void castFailed();
+}
+```
+### OptionClickCallback
+```
+public interface OptionClickCallback<T> {
+    /**
+     * Call when option being pressed or called @link #optionSelect(int mFilterNum, T optionId)
+     *
+     * @param filterNum The filterNum of the clicked filter.
+     * @param optionId  Option unique value.
+     */
+    void filterOptionClicked(int filterNum, T optionId);
+
+    /**
+     * Get called when you unSelect all option in a filter by calling {@link #optionSelect(FilterHolder, Object)} with a null parameter on optionId.
+    *
+    * @param filterNum The filterNum of the filter unselect all..
+     */
+    void filterUnSelectedAll(int filterNum);
+}
+```
+
+### OptionGetStringCallback
+```
+public interface OptionGetStringCallback<S> {
+    /**
+     * Decide the text on the option.
+     *
+     * @param optionId The optionId you set for this option.
+     * @param count    The count of this very option.
+     * @return A string that will be display on the option.
+     */
+    String getString(S optionId, int count);
+}
+```
 Enjoy!
