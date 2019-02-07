@@ -15,21 +15,21 @@ import static projects.tryhard.androidflexiblefilter.FlexibleFilter.mUnSelectedT
  */
 public class Option<T> {
     private Context mContext;
-    private T filterId;
+    private T optionId;
     private AutofitTextView autofitTextView;
     private int resultCount;
     private OptionGetStringCallback<T> mOptionGetStringCallback;
     private FlexibleFilter.SettingCallback mSettingCallback;
 
-    public Option(Context context, T filterId, AutofitTextView autofitTextView, int resultCount, OptionGetStringCallback<T> optionGetStringCallback, FlexibleFilter.SettingCallback settingCallback) {
+    public Option(Context context, T optionId, AutofitTextView autofitTextView, int resultCount, OptionGetStringCallback<T> optionGetStringCallback, FlexibleFilter.SettingCallback settingCallback) {
         this.mContext = context;
-        this.filterId = filterId;
+        this.optionId = optionId;
         this.autofitTextView = autofitTextView;
         this.resultCount = resultCount;
         this.mOptionGetStringCallback = optionGetStringCallback;
         this.mSettingCallback = settingCallback;
 
-        autofitTextView.setText(optionGetStringCallback.getString(filterId, resultCount));
+        autofitTextView.setText(optionGetStringCallback.getString(optionId, resultCount));
     }
 
     public void invalidate(boolean isSelected) {
@@ -59,15 +59,15 @@ public class Option<T> {
     }
 
     public String getString() {
-        return mOptionGetStringCallback.getString(filterId, resultCount);
+        return mOptionGetStringCallback.getString(optionId, resultCount);
     }
 
-    public T getFilterId() {
-        return filterId;
+    public T getOptionId() {
+        return optionId;
     }
 
-    public void setFilterId(T filterId) {
-        this.filterId = filterId;
+    public void setOptionId(T optionId) {
+        this.optionId = optionId;
     }
 
 

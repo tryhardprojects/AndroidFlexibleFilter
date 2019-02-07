@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     Button mOpenFilter2Button;
     Button mReAddfilter2Button;
     FlexibleFilter<String> mFilter3;
-    Button mOpenFilter3Button;
     FlexibleFilter<String> mFilter4;
     List<Human> mHumanList;
     RecyclerView mHumanRV;
@@ -50,21 +49,25 @@ public class MainActivity extends AppCompatActivity {
         mOpenFilter2Button = findViewById(R.id.filter2_open);
         mReAddfilter2Button = findViewById(R.id.filter2_readd);
         mFilter3 = findViewById(R.id.filter3);
-        mOpenFilter3Button = findViewById(R.id.filter3_open);
         mFilter4 = findViewById(R.id.filter4);
         mHumanRV = findViewById(R.id.filter4_rv);
 
         FlexibleFilter.OptionGetStringCallback<String> optionGetStringCallback1 = new FlexibleFilter.OptionGetStringCallback<String>() {
             @Override
-            public String getString(String filterId, int count) {
-                return String.format(Locale.CHINESE, "%s(%d)", filterId, count);
+            public String getString(String optionId, int count) {
+                return String.format(Locale.CHINESE, "%s(%d)", optionId, count);
             }
         };
 
 
         //region Filter 1
         final int filter1filterNum = 0;
-        mFilter1.init(this, filter1filterNum, 0, "ALL", new FlexibleFilter.FilterErrorCallback() {
+        mFilter1.init(this, filter1filterNum, 0, "ALL", new FlexibleFilter.FilterCallback() {
+            @Override
+            public String defaultAllOptionString(int filterNum, int count) {
+                return String.format(Locale.CHINESE, "All => (%d)", count);
+            }
+
             @Override
             public void noSuchFilterError(int notExistFilterNum) {
 
@@ -82,11 +85,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        mFilter1.setSubFilterCallback(filter1filterNum, String.class, new FlexibleFilter.FilterClickCallback<String>() {
+        mFilter1.setOptionOnClickCallback(filter1filterNum, String.class, new FlexibleFilter.OptionClickCallback<String>() {
             @Override
-            public void filterOptionClicked(int filterNum, String filterId) {
+            public void filterOptionClicked(int filterNum, String optionId) {
                 TextView title = mFilter1.getTitleView().findViewById(R.id.filter_title);
-                title.setText("Current selecting: " + filterId);
+                title.setText("Current selecting: " + optionId);
             }
 
             @Override
@@ -103,10 +106,10 @@ public class MainActivity extends AppCompatActivity {
         //region Filter 2
         final FlexibleFilter.OptionGetStringCallback<String> optionGetStringCallback2 = new FlexibleFilter.OptionGetStringCallback<String>() {
             @Override
-            public String getString(String filterId, int count) {
-                String text = filterId;
+            public String getString(String optionId, int count) {
+                String text = optionId;
                 if (filter2ShowCount) {
-                    text += "-" + count;
+                    text += "(" + count + ")";
                 }
                 return text;
             }
@@ -115,7 +118,11 @@ public class MainActivity extends AppCompatActivity {
 
         final int filter2filterNum = 0;
 
-        mFilter2.init(this, filter2filterNum, R.layout.filter_custom_title_for_2, "ALL", new FlexibleFilter.FilterErrorCallback() {
+        mFilter2.init(this, filter2filterNum, R.layout.filter_custom_title_for_2, "ALL", new FlexibleFilter.FilterCallback() {
+            @Override
+            public String defaultAllOptionString(int filterNum, int count) {
+                return String.format(Locale.CHINESE, "All => (%d)", count);
+            }
 
             @Override
             public void filterOptionNotExistError() {
@@ -132,11 +139,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        mFilter2.setSubFilterCallback(filter2filterNum, String.class, new FlexibleFilter.FilterClickCallback<String>() {
+        mFilter2.setOptionOnClickCallback(filter2filterNum, String.class, new FlexibleFilter.OptionClickCallback<String>() {
             @Override
-            public void filterOptionClicked(int filterNum, String filterId) {
+            public void filterOptionClicked(int filterNum, String optionId) {
                 View titleView = mFilter2.getTitleView();
-                switch (filterId) {
+                switch (optionId) {
                     case "ToggleTitle":
                         if (titleView.getVisibility() == View.GONE) {
                             titleView.setVisibility(View.VISIBLE);
@@ -160,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                         mFilter2.updateAllFilters();
                         break;
                     case "Toggle0Count":
-                        mFilter2.setShouldHideZeroFilters(!mFilter2.isShouldHideZeroFilters());
+                        mFilter2.setShouldHideZeroOptions(!mFilter2.isShouldHideZeroFilters());
                         break;
                     case "Clear":
                         mFilter2.clearSubFilter(filter2filterNum, String.class);
@@ -217,8 +224,8 @@ public class MainActivity extends AppCompatActivity {
         //region Filter 3
         final FlexibleFilter.OptionGetStringCallback<String> optionGetStringCallback3 = new FlexibleFilter.OptionGetStringCallback<String>() {
             @Override
-            public String getString(String filterId, int count) {
-                return filterId;
+            public String getString(String optionId, int count) {
+                return optionId;
             }
 
         };
@@ -226,7 +233,12 @@ public class MainActivity extends AppCompatActivity {
         final int filter3filterNum = 0;
         mFilter3.init(this, filter3filterNum, R.layout.filter_custom_title_for_3, "ALL", -1, true,
                 true, FlexibleFilter.Orientation.HORIZONTAL, -1, false,
-                false, new FlexibleFilter.FilterErrorCallback() {
+                false, new FlexibleFilter.FilterCallback() {
+                    @Override
+                    public String defaultAllOptionString(int filterNum, int count) {
+                        return String.format(Locale.CHINESE, "All => (%d)", count);
+                    }
+
                     @Override
                     public void filterOptionNotExistError() {
 
@@ -242,11 +254,11 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-        mFilter3.setSubFilterCallback(filter3filterNum, String.class, new FlexibleFilter.FilterClickCallback<String>() {
+        mFilter3.setOptionOnClickCallback(filter3filterNum, String.class, new FlexibleFilter.OptionClickCallback<String>() {
             @Override
-            public void filterOptionClicked(int filterNum, String filterId) {
+            public void filterOptionClicked(int filterNum, String optionId) {
                 EditText editText = mFilter3.getTitleView().findViewById(R.id.filter3_searchbar);
-                editText.setText(filterId);
+                editText.setText(optionId);
             }
 
             @Override
@@ -301,14 +313,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mFilter3.open();
-
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (b) mFilter3.open();
+                if (b && !mFilter3.isCurrentOpen()) mFilter3.open();
             }
         });
+
+        mFilter3.close();
         //endregion
 
         //region Filter 4
@@ -349,7 +361,12 @@ public class MainActivity extends AppCompatActivity {
         final int filter4_1filterNum = 0;
         final int filter4_2filterNum = 1;
 
-        mFilter4.init(this, filter4_1filterNum, R.layout.filter_custom_title_for_4, "ALL", new FlexibleFilter.FilterErrorCallback() {
+        mFilter4.init(this, filter4_1filterNum, R.layout.filter_custom_title_for_4, "ALL", new FlexibleFilter.FilterCallback() {
+            @Override
+            public String defaultAllOptionString(int filterNum, int count) {
+                return String.format(Locale.CHINESE, "All => (%d)", count);
+            }
+
             @Override
             public void filterOptionNotExistError() {
 
@@ -366,14 +383,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FlexibleFilter.FilterClickCallback<String> callback = new FlexibleFilter.FilterClickCallback<String>() {
+        FlexibleFilter.OptionClickCallback<String> callback = new FlexibleFilter.OptionClickCallback<String>() {
             private String currentFilter1Id = "";
             private String currentFilter2Id = "";
             private List<Human> currentList = mHumanList;
             TextView title;
 
             @Override
-            public void filterOptionClicked(int filterNum, String filterId) {
+            public void filterOptionClicked(int filterNum, String optionId) {
                 title = mFilter4.getTitleView().findViewById(R.id.filter_title);
                 if (filterNum == filter4_1filterNum) {
 
@@ -382,7 +399,7 @@ public class MainActivity extends AppCompatActivity {
 
                     List<Human> manLists = getSexList("Men");
                     List<Human> womanLists = getSexList("Women");
-                    switch (filterId) {
+                    switch (optionId) {
                         case "ALL":
                             currentList = new ArrayList<>(mHumanList);
                             mFilter4.updateCertainOption(filterHolder2, "0-20", get0To20List(currentList).size());
@@ -403,19 +420,19 @@ public class MainActivity extends AppCompatActivity {
                             break;
                     }
 
-                    if(currentFilter1Id != filterId){
+                    if (currentFilter1Id != optionId) {
                         // If user click a different option with current option, refresh filter on the right.
                         mFilter4.optionSelect(filterHolder2, null);
                     }
 
-                    currentFilter1Id = filterId;
+                    currentFilter1Id = optionId;
 
                 } else if (filterNum == filter4_2filterNum) {
-                    currentFilter2Id = filterId;
+                    currentFilter2Id = optionId;
 
                     List<Human> year0To20Human = get0To20List(currentList);
                     List<Human> yearAbove20Human = getAbove20List(currentList);
-                    switch (filterId) {
+                    switch (optionId) {
                         case "ALL":
                             mHumanAdapter.replace(currentList);
                             break;
@@ -432,7 +449,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void filterUnSelectedAll(int filterNum) {
-                if(filterNum == filter4_2filterNum){
+                if (filterNum == filter4_2filterNum) {
                     currentFilter2Id = "";
                     mHumanAdapter.replace(currentList);
                 }
@@ -441,8 +458,8 @@ public class MainActivity extends AppCompatActivity {
 
         };
         mFilter4.addFilter(filter4_2filterNum, "ALL", -1);
-        mFilter4.setSubFilterCallback(filter4_1filterNum, String.class, callback);
-        mFilter4.setSubFilterCallback(filter4_2filterNum, String.class, callback);
+        mFilter4.setOptionOnClickCallback(filter4_1filterNum, String.class, callback);
+        mFilter4.setOptionOnClickCallback(filter4_2filterNum, String.class, callback);
         mFilter4.setFilterColCount(2);
         mFilter4.setOpeningFilters(new ArrayList<Integer>() {{
             add(filter4_1filterNum);
@@ -451,8 +468,8 @@ public class MainActivity extends AppCompatActivity {
 
         FlexibleFilter.OptionGetStringCallback<String> optionGetStringCallback4 = new FlexibleFilter.OptionGetStringCallback<String>() {
             @Override
-            public String getString(String filterId, int count) {
-                return String.format(Locale.CHINESE, "%s(%d)", filterId, count);
+            public String getString(String optionId, int count) {
+                return String.format(Locale.CHINESE, "%s(%d)", optionId, count);
             }
         };
 

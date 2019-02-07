@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import projects.tryhard.androidflexiblefilter.FlexibleFilter.FilterClickCallback;
+import projects.tryhard.androidflexiblefilter.FlexibleFilter.OptionClickCallback;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -29,7 +29,7 @@ public class FilterHolder<T> {
     private T mCurrentSelected = null;
     private View mEmptyView;
 
-    private FilterClickCallback<T> mFilterClickCallback;
+    private OptionClickCallback<T> mOptionClickCallback;
     private FlexibleFilter.SettingCallback mSettingCallback;
 
     private boolean mIsRemoved = false;
@@ -52,9 +52,9 @@ public class FilterHolder<T> {
         setContainerVisible(false);
     }
 
-    Option getFilterButton(T filterId) {
+    Option getOption(T optionId) {
         for (int i = 0; i < mOptions.size(); i++) {
-            if (mOptions.get(i).getFilterId().equals(filterId)) {
+            if (mOptions.get(i).getOptionId().equals(optionId)) {
                 return mOptions.get(i);
             }
         }
@@ -76,7 +76,7 @@ public class FilterHolder<T> {
                 isEveryOptionCountZero = false;
             }
 
-            if (mCurrentSelected != null && mCurrentSelected.equals(mOptions.get(i).getFilterId())) {
+            if (mCurrentSelected != null && mCurrentSelected.equals(mOptions.get(i).getOptionId())) {
                 mOptions.get(i).invalidate(true);
             } else {
                 mOptions.get(i).invalidate(false);
@@ -103,8 +103,8 @@ public class FilterHolder<T> {
         }
     }
 
-    public void setFilterClickCallback(FilterClickCallback<T> mFilterClickCallback) {
-        this.mFilterClickCallback = mFilterClickCallback;
+    public void setFilterClickCallback(OptionClickCallback<T> mOptionClickCallback) {
+        this.mOptionClickCallback = mOptionClickCallback;
     }
 
     void hideZeroOptions() {
@@ -137,7 +137,7 @@ public class FilterHolder<T> {
     public List<T> getAllFilterIds() {
         List<T> allFilterIds = new ArrayList<>();
         for (int i = 0; i < getOptions().size(); i++) {
-            allFilterIds.add(getOptions().get(i).getFilterId());
+            allFilterIds.add(getOptions().get(i).getOptionId());
         }
         return allFilterIds;
     }
@@ -148,7 +148,7 @@ public class FilterHolder<T> {
 
     void setOptionsDeco() {
         for (int i = 0; i < mOptions.size(); i++) {
-            if (mOptions.get(i).getFilterId().equals(mCurrentSelected)) {
+            if (mOptions.get(i).getOptionId().equals(mCurrentSelected)) {
                 mOptions.get(i).setSelected();
             } else {
                 mOptions.get(i).setUnSelected();
@@ -170,15 +170,15 @@ public class FilterHolder<T> {
         option.getAutofitTextView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mFilterClickCallback != null) {
-                    optionClicked(option.getFilterId());
+                if (mOptionClickCallback != null) {
+                    optionClicked(option.getOptionId());
                 }
             }
         });
     }
 
-    void removeFilterButton(T filterId){
-        Option<T> option = getFilterButton(filterId);
+    void removeOption(T optionId){
+        Option<T> option = getOption(optionId);
         mContainer.removeView(option.getAutofitTextView());
         mOptions.remove(option);
 
@@ -257,25 +257,25 @@ public class FilterHolder<T> {
     }
 
     public void unSelectedAll() {
-        if (mFilterClickCallback != null) {
-            mFilterClickCallback.filterUnSelectedAll(mFilterNum);
+        if (mOptionClickCallback != null) {
+            mOptionClickCallback.filterUnSelectedAll(mFilterNum);
         }
         setCurrentSelected(null);
     }
 
-    public void optionClicked(T filterId) {
-        if (filterId == null) {
+    public void optionClicked(T optionId) {
+        if (optionId == null) {
             unSelectedAll();
             setOptionsDeco();
         } else {
-            setCurrentSelected(filterId);
+            setCurrentSelected(optionId);
 
             if (mSettingCallback.getFlexibleFilter().isChangeColorWhenSelect()) {
                 setOptionsDeco();
             }
 
-            if (mFilterClickCallback != null) {
-                mFilterClickCallback.filterOptionClicked(mFilterNum, filterId);
+            if (mOptionClickCallback != null) {
+                mOptionClickCallback.filterOptionClicked(mFilterNum, optionId);
             }
 
         }
