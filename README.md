@@ -1,5 +1,5 @@
 # AndroidFlexibleFilter
-An library to create flexible dynamic and filter, custom title with tags.
+An library to create flexible and dynamic filter, custom title with tags.
 
 # Screen Shots
 ### Basic
@@ -80,7 +80,4 @@ You can customizable the attributes by xml, java (with init() or set methods).
 | Close After Click        | true          | app:shouldCloseAfterClick       | setShouldCloseAfterClick       |
 | Hide All                 | false         | app:shouldHideAll               | setShouldHideAll               |
 
-
-
-
-
+Enjoy!
