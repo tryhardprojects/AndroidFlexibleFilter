@@ -30,7 +30,6 @@ An library to create flexible and dynamic filter, custom title with tags.
 First add this to the xml layout file.
 ```
 <projects.tryhard.androidflexiblefilter.FlexibleFilter
-    android:id="@+id/quests_filter"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 ```
