@@ -333,7 +333,7 @@ public class FlexibleFilter<T> extends LinearLayout {
 
         setFilterOrientation(mOrientation);
 
-        setOpeningFilters(mCurrentOpeningFilters);
+        setOpeningFilters(new ArrayList<>(mCurrentOpeningFilters));
     }
     //endregion
 
@@ -680,6 +680,10 @@ public class FlexibleFilter<T> extends LinearLayout {
     public void setShouldHideAll(boolean shouldHideAll) {
         mShouldHideAll = shouldHideAll;
         updateAllFilters();
+    }
+
+    public void setTitleView(View titleView) {
+        mTitleView = titleView;
     }
 
     private boolean isFiltersValid(List<Integer> checkFilters) {

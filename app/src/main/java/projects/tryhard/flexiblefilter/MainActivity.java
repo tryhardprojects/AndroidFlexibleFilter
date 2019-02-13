@@ -85,21 +85,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        mFilter1.setOptionOnClickCallback(filter1filterNum, String.class, new FlexibleFilter.OptionClickCallback<String>() {
-            @Override
-            public void filterOptionClicked(int filterNum, String optionId) {
-                TextView title = mFilter1.getTitleView().findViewById(R.id.filter_title);
-                title.setText("Current selecting: " + optionId);
-            }
-
-            @Override
-            public void filterUnSelectedAll(int filterNum) {
-
-            }
-        });
-        mFilter1.addFilterOption(filter1filterNum, "A", 1, getScreenWidthPixel(this) / 3, optionGetStringCallback1);
-        mFilter1.addFilterOption(filter1filterNum, "B", 2, getScreenWidthPixel(this) / 3, optionGetStringCallback1);
-        mFilter1.addFilterOption(filter1filterNum, "C", 3, getScreenWidthPixel(this) / 3, optionGetStringCallback1);
+//        mFilter1.setOptionOnClickCallback(filter1filterNum, String.class, new FlexibleFilter.OptionClickCallback<String>() {
+//            @Override
+//            public void filterOptionClicked(int filterNum, String optionId) {
+//                TextView title = mFilter1.getTitleView().findViewById(R.id.filter_title);
+//                title.setText("Current selecting: " + optionId);
+//            }
+//
+//            @Override
+//            public void filterUnSelectedAll(int filterNum) {
+//
+//            }
+//        });
+//        mFilter1.addFilterOption(filter1filterNum, "A", 1, getScreenWidthPixel(this) / 3, optionGetStringCallback1);
+//        mFilter1.addFilterOption(filter1filterNum, "B", 2, getScreenWidthPixel(this) / 3, optionGetStringCallback1);
+//        mFilter1.addFilterOption(filter1filterNum, "C", 3, getScreenWidthPixel(this) / 3, optionGetStringCallback1);
 
         //endregion
 
